@@ -1,0 +1,9 @@
+{
+  "author": {
+    "name": ""
+  },
+  "description": "Crowdsourcing Dataset Frontend",
+  "main": "server.js",
+  "name": "crowdsourcing-dataset-frontend",
+  "version": "0.0.0"
+}
