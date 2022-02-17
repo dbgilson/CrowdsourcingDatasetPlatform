@@ -43,24 +43,24 @@ We will meet twice weekly remotely or face-to-face if necessary.
 
 Schedule:
 
--Sprint 1 - Ends February 18th
---Complete project proposal
--Sprint 2 - Ends March 4th
---Plan major future sprint milestones
---Create first draft comprehensive design of platform functionality and integration.
---Have barebones website page structure and navigation, SQL database table design, and beginnings of web crawler/search engine.
--Sprint 3 - Ends March 18th
---TBD
--Sprint 4 - Ends April 1st
---TBD
--Sprint 5 - Ends April 15th
---TBD
--Sprint 6 - Ends April 29th
---TBD
--Sprint 7 - Ends May 13th
---TBD
--Sprint 8 - Ends May 27th
---TBD
+- Sprint 1 - Ends February 18th
+-- Complete project proposal
+- Sprint 2 - Ends March 4th
+-- Plan major future sprint milestones
+-- Create first draft comprehensive design of platform functionality and integration.
+-- Have barebones website page structure and navigation, SQL database table design, and beginnings of web crawler/search engine.
+- Sprint 3 - Ends March 18th
+-- TBD
+- Sprint 4 - Ends April 1st
+-- TBD
+- Sprint 5 - Ends April 15th
+-- TBD
+- Sprint 6 - Ends April 29th
+-- TBD
+- Sprint 7 - Ends May 13th
+-- TBD
+- Sprint 8 - Ends May 27th
+-- TBD
 
 There are no regulatory or legal constraints, but one social concern is if malicious users submit bad data to others’ datasets. We will allow the creators/owners of a dataset to screen contributed data in order to filter out data that does not meet the criteria they required.
 The data needed will all be open source data found through web scraping or data that has been contributed by users.
