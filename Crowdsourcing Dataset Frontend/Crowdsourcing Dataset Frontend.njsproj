@@ -79,6 +79,8 @@
     <Content Include="bootstrap-5.1.3-dist\js\bootstrap.min.js" />
     <Content Include="bootstrap-5.1.3-dist\js\bootstrap.min.js.map" />
     <Content Include="Pages\headers.css" />
+    <Content Include="Pages\Register.css" />
+    <Content Include="Pages\Register.html" />
     <Content Include="Pages\Login.html" />
     <Content Include="Pages\Login.css" />
     <Content Include="server.js" />
