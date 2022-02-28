@@ -70,3 +70,7 @@ The minimum functionality that will need to be implemented for the project to be
 
 We have chosen the Scrum framework as our development process. This is largely due to its flexibility of development, its structured tasks and roles, and that it is a process that each member of the team has some familiarity with. In addition, the three questions addressed each daily scrum  (‘What did you do yesterday?’, ‘What will you do today?’, ‘Are there any issues blocking you?’) are simple and efficient in enabling teamwork and communication.
 XP explicitly engages with users as a main part of the process, which, without a dedicated user outside our group, makes it less worthwhile for this project. Waterfall seemed like a very rigid process, and didn't offer the flexibility of development that scrum offers. 
+
+## User Case
+There are a few uses cases that this software could handle, but one could possibly be this:
+- A researcher who is programming an AI photograph development tool would like some base picture data sets of common objects or perhaps even data already made by AI.  The researcher could go to the site, search for datasets with tags related to their needs, and train their AI photo generation tool.  After the researcher feels the tool does an adequate job and has produced photographic datasets based on their own tool, they could create or contribute back to any AI tagged photographic dataset on the site.  This method progressively builds onto and varies the datasets available on the site.
