@@ -37,3 +37,27 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.form-upload {
+    width: 100%;
+    max-width: 495px;
+    align-items: center;
+    padding: 15px;
+    margin: auto;
+}
+
+.input-group {
+    width: 100%;
+    max-width: 495px;
+    align-items: center;
+    padding: 15px;
+    margin: auto;
+}
+
+.list-group-item {
+    width: 100%;
+    max-width: 330px;
+    align-items: center;
+    padding: 15px;
+    margin: auto;
+}
