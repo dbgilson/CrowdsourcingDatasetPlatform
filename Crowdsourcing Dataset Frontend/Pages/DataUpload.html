@@ -61,7 +61,7 @@
               </div>
 
               <div class="input-group mb-1">
-                  <input type="search" class="form-control rounded" placeholder="Search Tags" aria-label="Search" aria-describedby="search-addon" id="search"/>
+                  <input type="search" class="form-control rounded" placeholder="Search Tags" aria-label="Search" aria-describedby="search-addon" id="search" />
                   <button type="button" class="btn btn-outline-primary" id="addTag">Add Tag</button>
               </div>
 
@@ -74,7 +74,11 @@
                   <input class="form-control" type="file" id="formFileMultiple" multiple>
               </div>
 
-              <button class="w-50 btn btn-lg btn-primary" type="submit">Create Dataset</button>
+              <button type="button" class="w-50 btn btn-lg btn-primary" id="datasetSubmit">Create Dataset</button>
+
+              <div class="container mb-3">
+                  <ul class="list-group" id="dataRecieved"></ul>
+              </div>
 
               <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
           </form>
