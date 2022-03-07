@@ -71,6 +71,19 @@ The minimum functionality that will need to be implemented for the project to be
 We have chosen the Scrum framework as our development process. This is largely due to its flexibility of development, its structured tasks and roles, and that it is a process that each member of the team has some familiarity with. In addition, the three questions addressed each daily scrum  (‘What did you do yesterday?’, ‘What will you do today?’, ‘Are there any issues blocking you?’) are simple and efficient in enabling teamwork and communication.
 XP explicitly engages with users as a main part of the process, which, without a dedicated user outside our group, makes it less worthwhile for this project. Waterfall seemed like a very rigid process, and didn't offer the flexibility of development that scrum offers. 
 
-## User Case
-There are a few uses cases that this software could handle, but one could possibly be this:
+## Use Case
+Here is a general use case of the platform as a whol:
 - A researcher who is programming an AI photograph development tool would like some base picture data sets of common objects or perhaps even data already made by AI.  The researcher could go to the site, search for datasets with tags related to their needs, and train their AI photo generation tool.  After the researcher feels the tool does an adequate job and has produced photographic datasets based on their own tool, they could create or contribute back to any AI tagged photographic dataset on the site.  This method progressively builds onto and varies the datasets available on the site.
+
+Here are some more use cases that are more specific/defined:
+- Header buttons lead to the correct page when clicked
+- User state is kept between page switches
+- A user can type something into the search bar and a request to the database server is made
+- The server can send back requested data and the results page can itemize that data
+- A user can make a request to modify another user's data.  The requested user can view the request.
+
+## Architectural Views
+![image](https://user-images.githubusercontent.com/73197003/156689516-b4f9600e-31d6-4367-be32-e6100dd76ba4.png)
+
+![image](https://user-images.githubusercontent.com/73197003/156689560-e50f0e98-8bbe-4f04-85b0-530acc4697df.png)
+
