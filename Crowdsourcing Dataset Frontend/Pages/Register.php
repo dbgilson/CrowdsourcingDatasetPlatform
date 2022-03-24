@@ -97,6 +97,10 @@ if (isset($_POST['submit'])) {
     $username = test_input($_POST["username"]);
     $password = test_input($_POST["password"]);
 
+    echo $name;
+    echo $username;
+    echo $password;
+    
         $new_user = array(
           "name"      => $_POST['name'],
           "username"  => $_POST['username'],
