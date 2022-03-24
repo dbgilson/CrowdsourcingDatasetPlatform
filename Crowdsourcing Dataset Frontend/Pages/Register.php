@@ -52,13 +52,13 @@
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="form-floating">
-                        <input type="username" class="form-control" id="name" name="name" placeholder="name">
+                        <input type="username" class="form-control" id="name" name="name" placeholder="name" required>
                         <label for="name">Name</label>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="form-floating">
-                        <input type="username" class="form-control" id="username" name="username" placeholder="username">
+                        <input type="username" class="form-control" id="username" name="username" placeholder="username" required>
                         <label for="username">Username</label>
                     </div>
                 </div>
@@ -67,13 +67,13 @@
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                         <label for="password">Password</label>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPasswordCheck" placeholder="Password">
+                        <input type="password" class="form-control" id="floatingPasswordCheck" name="floatingPasswordCheck" placeholder="Password">
                         <label for="floatingPasswordCheck">Re-Enter Password</label>
                     </div>
                 </div>
@@ -84,18 +84,24 @@
         </form>
     </main>
 <?php
+$name_error = $username_error = $password_error = $passwordMatch_error = "";
+$name = $username = $password = "";
 
 if (isset($_POST['submit'])) {
 
   echo "Hello, made it into submit";
   require "../../config/config.php";
   require "../../config/common.php";
-  try {
-    $connection = new PDO($dsn, $username, $password, $options);
 
-    $name = test_input($_POST["name"]);
-    $username = test_input($_POST["username"]);
-    $password = test_input($_POST["password"]);
+  // make sure passwords match
+  if ($_POST["password"] === $_POST["floatingPasswordCheck"]) {
+      // passwords match
+      try {
+        $connection = new PDO($dsn, $username, $password, $options);
+
+        $name = test_input($_POST["name"]);
+        $username = test_input($_POST["username"]);
+        $password = test_input($_POST["password"]);
 
     echo $name;
     echo $username;
@@ -108,23 +114,28 @@ if (isset($_POST['submit'])) {
         );
 
         $sql = sprintf(
-    "INSERT INTO %s (%s) values (%s)",
-    "users",
-    implode(", ", array_keys($new_user)),
-    ":" . implode(", :", array_keys($new_user))
+            "INSERT INTO %s (%s) values (%s)",
+            "users",
+            implode(", ", array_keys($new_user)),
+            ":" . implode(", :", array_keys($new_user))
         );
 
         $statement = $connection->prepare($sql);
         $statement->execute($new_user);
       } catch(PDOException $error) {
-        echo $sql . "<br>" . $error->getMessage();
-      }
+          echo $sql . "<br>" . $error->getMessage();
+        }
 
-}
-
-if (isset($_POST['submit']) && $statement) {
-    echo "successfully added";
-} 
+        if (isset($_POST['submit']) && $statement) {
+            echo "successfully added";
+        }
+    }
+    else {
+        // passwords do not match
+        echo "Error: passwords must match.";
+        exit;
+    }
+  }
 
 function test_input($data) {
   $data = trim($data);
