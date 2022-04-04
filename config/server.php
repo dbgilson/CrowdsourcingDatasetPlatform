@@ -12,7 +12,7 @@ $_SESSION['success'] = "";
 
 // DBMS connection code -> hostname,
 // username, password, database name
-$db = mysqli_connect('127.0.0.1', 'db_admin', 'password', 'crowdsource_website_db');
+$db = mysqli_connect('127.0.0.1', 'db_admin', '', 'crowdsource_website_db');
 
 // Registration code
 if (isset($_POST['reg_user'])) {
@@ -68,7 +68,7 @@ if (isset($_POST['reg_user'])) {
 		// Page on which the user will be
 		// redirected after logging in
                 // header('location: index.php');
-                header('location: User.html');
+                header('location: User.php');
 	}
 }
 
@@ -110,7 +110,7 @@ if (isset($_POST['login_user'])) {
 			// Page on which the user is sent
 			// to after logging in
                         //header('location: index.php');
-                        header('location: User.html');
+                        header('location: User.php');
 		}
 		else {
 			
