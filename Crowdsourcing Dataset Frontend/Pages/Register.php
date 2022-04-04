@@ -1,60 +1,90 @@
 <?php include('../../config/server.php') ?>
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>
-		Registration system PHP and MySQL
-	</title>
-	<link rel="stylesheet" type="text/css"
-					href="style.css">
+    <meta charset="utf-8">
+    <title>Crowdsourcing Dataset Platform</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="Register.css" rel="stylesheet">
+    <link href="headers.css" rel="stylesheet">
 </head>
+<body class="text-center">
+    <main>
+        <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap" /></svg>
+                    <span class="fs-4">CDP</span>
+                </a>
 
-<body>
-	<div class="header">
-		<h2>Register</h2>
-	</div>
-	
-	<form method="post" action="Register.php">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a href="Login.html" class="nav-link active" aria-current="page">Login</a></li>
+                    <li class="nav-item"><a href="Search.html" class="nav-link">Search</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Profile</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
+                </ul>
+            </header>
+        </div>
 
-		<?php include('../../config/errors.php'); ?>
+        <form class="form-signin" method="post" action="Register.php">
+            <?php include('../../config/errors.php'); ?>
+            <img class="mb-4" src="../assets/checkbox.png" alt="" width="144" height="57">
+            <h1 class="h3 mb-3 fw-normal">Registration</h1>
 
-		<div class="input-group">
-			<label>Enter Username</label>
-			<input type="text" name="username"
-				value="<?php echo $username; ?>">
-		</div>
-		<div class="input-group">
-			<label>Enter Name</label>
-			<input type="text" name="name"
-				value="<?php echo $name; ?>">
-		</div>
-		<div class="input-group">
-			<label>Enter Password</label>
-			<input type="password" name="password_1">
-		</div>
-		<div class="input-group">
-			<label>Confirm password</label>
-			<input type="password" name="password_2">
-		</div>
-		<div class="input-group">
-			<button type="submit" class="btn"
-								name="reg_user">
-				Register
-			</button>
-		</div>
-		
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-floating">
+                        <input type="username" class="form-control" id="name" name="name" placeholder="name" required>
+                        <label for="name">Name</label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="form-floating">
+                        <input type="username" class="form-control" id="username" name="username" placeholder="username" required>
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password_1" name="password_1" placeholder="Password" required>
+                        <label for="password_1">Password</label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password_2" name="password_2" placeholder="Password">
+                        <label for="password_2">Re-Enter Password</label>
+                    </div>
+                </div>
+            </div>
+            <input class="w-50 btn btn-lg btn-primary" id="submit" name="reg_user" value="Submit" type="submit">
 
-<p>
-			Already having an account?
-			<a href="Login.php">
-				Login Here!
-			</a>
-		</p>
-
-
-
-	</form>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
+        </form>
+    </main>
 </body>
 </html>
 
