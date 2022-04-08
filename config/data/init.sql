@@ -16,5 +16,6 @@ CREATE DATABASE crowdsource_website_db;
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     description VARCHAR(5000) NOT NULL,
-    tags VARCHAR(500)  
+    tags VARCHAR(500),
+    owner_id INT FOREIGN KEY REFERENCES users(id)
   );
