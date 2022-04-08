@@ -11,3 +11,10 @@ CREATE DATABASE crowdsource_website_db;
     password VARCHAR(30) NOT NULL,
     date TIMESTAMP
   );
+
+  CREATE TABLE internalDatasets (
+    id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description VARCHAR(5000) NOT NULL,
+    tags VARCHAR(500)  
+  );
