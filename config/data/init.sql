@@ -17,5 +17,6 @@ CREATE DATABASE crowdsource_website_db;
     title VARCHAR(100) NOT NULL,
     description VARCHAR(5000) NOT NULL,
     tags VARCHAR(500),
-    owner_id INT FOREIGN KEY REFERENCES users(id)
+    owner_id INT(11) UNSIGNED NOT NULL,
+    FOREIGN KEY (owner_id) REFERENCES users(id)
   );
