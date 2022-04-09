@@ -45,26 +45,26 @@ if (isset($_POST['reg_user'])) {
 
 	// If the form is error free, then register the user
 	if (count($errors) == 0) {
-		
+
 		// Password encryption to increase data security
 		$password = md5($password_1);
-		
+
 		// Inserting data into table
 		// $query = "INSERT INTO users (username, email, password)
                 //                VALUES('$username', '$email', '$password')";
 
                 $query = "INSERT INTO users (name, username, password)
                                 VALUES('$name', '$username', '$password')";
-		
+
                 mysqli_query($db, $query);
 
 		// Storing username of the logged in user,
 		// in the session variable
 		$_SESSION['username'] = $username;
-		
+
 		// Welcome message
 		$_SESSION['success'] = "You have logged in";
-		
+
 		// Page on which the user will be
 		// redirected after logging in
                 // header('location: index.php');
@@ -74,7 +74,7 @@ if (isset($_POST['reg_user'])) {
 
 // User login
 if (isset($_POST['login_user'])) {
-	
+
 	// Data sanitization to prevent SQL injection
 	$username = mysqli_real_escape_string($db, $_POST['username']);
 	$password = mysqli_real_escape_string($db, $_POST['password']);
@@ -89,10 +89,10 @@ if (isset($_POST['login_user'])) {
 
 	// Checking for the errors
 	if (count($errors) == 0) {
-		
+
 		// Password matching
 		$password = md5($password);
-		
+
 		$query = "SELECT * FROM users WHERE username=
 				'$username' AND password='$password'";
 		$results = mysqli_query($db, $query);
@@ -100,26 +100,57 @@ if (isset($_POST['login_user'])) {
 		// $results = 1 means that one user with the
 		// entered username exists
 		if (mysqli_num_rows($results) == 1) {
-			
+
 			// Storing username in session variable
 			$_SESSION['username'] = $username;
-			
+
 			// Welcome message
 			$_SESSION['success'] = "You have logged in!";
-			
+
 			// Page on which the user is sent
 			// to after logging in
                         //header('location: index.php');
                         header('location: User.php');
 		}
 		else {
-			
+
 			// If the username and password doesn't match
 			array_push($errors, "Username or password incorrect");
 		}
 	}
 }
 
+// Create a new dataset
+if (isset($_POST['create_dataset'])) {
+    //echo $_POST['title'];
+    //echo $_POST['description'];
+    //echo $_POST['tags'];
+
+    $title = mysqli_real_escape_string($db, $_POST['title']);
+    $description = mysqli_real_escape_string($db, $_POST['description']);
+    $tags = mysqli_real_escape_string($db, $_POST['tags']);
+
+    // Ensuring that the user has not left any input field blank
+    // error messages will be displayed for every blank input that is required
+    if (empty($title)) { array_push($errors, "Title is required"); }
+    if (empty($description)) { array_push($errors, "Description is required"); }
+
+    // If the form is error free, then create the dataset
+    if (count($errors) == 0) {
+
+        // FIX THIS TO JOIN THE USER ID
+        $query = "INSERT INTO internalDatasets (title, description, tags)
+                        VALUES('$title', '$description', '$tags')";
+
+        mysqli_query($db, $query);
+
+        // Welcome message
+        $_SESSION['success'] = "You have created a new dataset";
+
+        // Page on which the user will be
+        // redirected after logging in
+        header('location: User.php');
+    }
+}
+
 ?>
-
-
