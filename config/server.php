@@ -12,7 +12,7 @@ $_SESSION['success'] = "";
 
 // DBMS connection code -> hostname,
 // username, password, database name
-$db = mysqli_connect('127.0.0.1', 'db_admin', '', 'crowdsource_website_db');
+$db = mysqli_connect('127.0.0.1', 'db_admin', 'password', 'crowdsource_website_db');
 
 // Registration code
 if (isset($_POST['reg_user'])) {
@@ -24,18 +24,18 @@ if (isset($_POST['reg_user'])) {
 	// $username = mysqli_real_escape_string($db, $_POST['username']);
 	// $email = mysqli_real_escape_string($db, $_POST['email']);
 	// $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
-        // $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+    // $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
-        $name = mysqli_real_escape_string($db, $_POST['name']);
-        $username = mysqli_real_escape_string($db, $_POST['username']);
-        $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
-        $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+    $name = mysqli_real_escape_string($db, $_POST['name']);
+    $username = mysqli_real_escape_string($db, $_POST['username']);
+    $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
+    $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
 
 	// Ensuring that the user has not left any input field blank
-        // error messages will be displayed for every blank input
-        if (empty($name)) { array_push($errors, "Name is required"); }
+    // error messages will be displayed for every blank input
+    if (empty($name)) { array_push($errors, "Name is required"); }
 	if (empty($username)) { array_push($errors, "Username is required"); }
-        // if (empty($email)) { array_push($errors, "Email is required"); }
+    // if (empty($email)) { array_push($errors, "Email is required"); }
 	if (empty($password_1)) { array_push($errors, "Password is required"); }
 
 	if ($password_1 != $password_2) {
@@ -67,8 +67,8 @@ if (isset($_POST['reg_user'])) {
 
 		// Page on which the user will be
 		// redirected after logging in
-                // header('location: index.php');
-                header('location: User.php');
+        // header('location: index.php');
+        header('location: User.php');
 	}
 }
 
@@ -101,16 +101,18 @@ if (isset($_POST['login_user'])) {
 		// entered username exists
 		if (mysqli_num_rows($results) == 1) {
 
-			// Storing username in session variable
+			// Storing username and id in session variables
 			$_SESSION['username'] = $username;
+            $_SESSION['id'] = mysqli_fetch_array($results)['id'];
 
 			// Welcome message
 			$_SESSION['success'] = "You have logged in!";
 
 			// Page on which the user is sent
 			// to after logging in
-                        //header('location: index.php');
-                        header('location: User.php');
+            //header('location: index.php');
+            //header('location: User.php');
+            header('location: CreateDataset.php');/////////
 		}
 		else {
 
@@ -122,9 +124,6 @@ if (isset($_POST['login_user'])) {
 
 // Create a new dataset
 if (isset($_POST['create_dataset'])) {
-    //echo $_POST['title'];
-    //echo $_POST['description'];
-    //echo $_POST['tags'];
 
     $title = mysqli_real_escape_string($db, $_POST['title']);
     $description = mysqli_real_escape_string($db, $_POST['description']);
@@ -138,11 +137,11 @@ if (isset($_POST['create_dataset'])) {
     // If the form is error free, then create the dataset
     if (count($errors) == 0) {
 
-        // FIX THIS TO JOIN THE USER ID
-        $query = "INSERT INTO internalDatasets (title, description, tags)
-                        VALUES('$title', '$description', '$tags')";
+        $owner_id = $_SESSION['id'];
+        $query = "INSERT INTO internalDatasets (title, description, tags, owner_id)
+                    VALUES('$title', '$description', '$tags', '$owner_id')";
 
-        mysqli_query($db, $query);
+        mysqli_query($db, $query) or trigger_error(mysqli_error($db));
 
         // Welcome message
         $_SESSION['success'] = "You have created a new dataset";
