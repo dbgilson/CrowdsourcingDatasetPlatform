@@ -62,7 +62,7 @@ if (isset($_POST['reg_user'])) {
 		// in the session variable
 		$_SESSION['username'] = $username;
 
-		// Welcome message
+		// Success message
 		$_SESSION['success'] = "You have logged in";
 
 		// Page on which the user will be
@@ -105,7 +105,7 @@ if (isset($_POST['login_user'])) {
 			$_SESSION['username'] = $username;
             $_SESSION['id'] = mysqli_fetch_array($results)['id'];
 
-			// Welcome message
+			// Success message
 			$_SESSION['success'] = "You have logged in!";
 
 			// Page on which the user is sent
@@ -134,21 +134,79 @@ if (isset($_POST['create_dataset'])) {
     if (empty($title)) { array_push($errors, "Title is required"); }
     if (empty($description)) { array_push($errors, "Description is required"); }
 
+    // Ensure that the title is unique
+    if (file_exists("datasets/" . $title)) {
+        array_push($errors, "Title is taken");
+    }
+
+    // Ensuring that the title is a valid directory name
+    if (preg_match('/^[\/\w\-. ]+$/', $title)) {
+        array_push($errors, "Title must be a valid directory name");
+    }
+
     // If the form is error free, then create the dataset
     if (count($errors) == 0) {
 
+        // Create a new row in the internalDatasets table
+        // FIXME Add a column for number of datapoints in the dataset FIXME
         $owner_id = $_SESSION['id'];
         $query = "INSERT INTO internalDatasets (title, description, tags, owner_id)
                     VALUES('$title', '$description', '$tags', '$owner_id')";
 
         mysqli_query($db, $query) or trigger_error(mysqli_error($db));
 
-        // Welcome message
-        $_SESSION['success'] = "You have created a new dataset";
+        // Create a new directory to store the dataset
+        $db_path = "datasets/" . $title;
+        if (!mkdir($db_path)) {
+            echo "ERROR: could not create directory " . $db_path;
+        }
+        else {
+            // Success message
+            $_SESSION['success'] = "You have created a new dataset";
 
-        // Page on which the user will be
-        // redirected after logging in
-        header('location: User.php');
+            // Page on which the user will be
+            // redirected after logging in
+            header('location: User.php');
+        }
+    }
+}
+
+// Create a new dataset
+if (isset($_POST['upload_image'])) {
+    $target_dir = "datasets/" . $_SESSION['dataset'] . "/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+
+    // Check if image file is a actual image or fake image
+    //$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    //echo $check;
+    //if($check !== true) {
+    //    array_push($errors, "File must be an image");
+    //}
+
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        array_push($errors, "File already exists");
+    }
+
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 500000) {
+        array_push($errors, "File is too large");
+    }
+
+    // Check file format
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    if($imageFileType != "jpg" && $imageFileType != "png"&& $imageFileType != "jpeg") {
+        array_push($errors, "File msut be JPG, JPEG, or PNG");
+    }
+
+    // If the form is error free, then create the dataset
+    if (count($errors) == 0) {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            $_SESSION['success'] = "You have successfully uploaded a file";
+        }
+        else {
+            echo "Error uploading your file.";
+        }
     }
 }
 
