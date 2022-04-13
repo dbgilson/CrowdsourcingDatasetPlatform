@@ -1,7 +1,7 @@
 # Initial Resources: Insights
 
 - Simple and easy built-in tool for checking basic metrics on a repo.
-- Relevant/Intersting Metrics
+- Relevant/Interesting Metrics
   - Contribution:  Interesting metric to view lines added/removed.  Doesn't really account for copying/template usage, however, so that can skew views on unique line creation.
 
 ![image](https://user-images.githubusercontent.com/73197003/163085099-448034aa-eb30-4b23-85d0-ca6dc90f1d44.png)
