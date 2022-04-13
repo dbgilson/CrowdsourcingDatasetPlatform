@@ -19,7 +19,7 @@
 
 
   - Contribution Activity: Metric to view Discussions, Issues, and Pull Requests.  Could be used to increase/decrease frequency of these actions.  For example, our metric views low discussion count (we have been discussing through other means, however), so if we weren't actually discussing enough, this metric would address that.
-  - 
+
 ![image](https://user-images.githubusercontent.com/73197003/163085970-bfcc4dda-4463-4a5a-8692-e91b8e3005f6.png)
 
 
