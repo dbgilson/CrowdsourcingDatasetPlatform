@@ -8,18 +8,31 @@
 
 ![image](https://user-images.githubusercontent.com/73197003/163085182-3d4ed4e7-d1e8-4240-917b-b7c82a7cd33c.png)
 
+
+
+
   - Number of Commits Per Date and Per Weekday.  Interesting to view when commits actually occur.
 
 ![image](https://user-images.githubusercontent.com/73197003/163085536-0f260a2f-2398-4bdc-8eae-2daf647115b4.png)
 
+
+
+
   - Contribution Activity: Metric to view Discussions, Issues, and Pull Requests.  Could be used to increase/decrease frequency of these actions.  For example, our metric views low discussion count (we have been discussing through other means, however), so if we weren't actually discussing enough, this metric would address that.
+  - 
 ![image](https://user-images.githubusercontent.com/73197003/163085970-bfcc4dda-4463-4a5a-8692-e91b8e3005f6.png)
+
+
 
 # Other Resources
 
 - Lines of Code Tool
   - This tool can be used to determine language usage, as well as determining certain practices used in the code like how many comments or blank lines are used with that particular language, as well as the project in general.
+
 ![image](https://user-images.githubusercontent.com/73197003/163087288-bdbb8e63-b463-4e79-ad0c-7ab890e78abc.png)
+
+
+
 
 - Continuous Github Metric Measurement Actions
   - We experimented using a Metrics tool that can be used whenever a commit is made (or perhaps enacted on a daily schedule) that updates metrics about a user or the repository.
