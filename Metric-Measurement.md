@@ -19,7 +19,7 @@
 
 - Lines of Code Tool
   - This tool can be used to determine language usage, as well as determining certain practices used in the code like how many comments or blank lines are used with that particular language, as well as the project in general.
-![image](https://user-images.githubusercontent.com/73197003/163086189-7c2437f3-1ce3-4b8f-bed1-87db5b474bac.png)
+![image](https://user-images.githubusercontent.com/73197003/163087288-bdbb8e63-b463-4e79-ad0c-7ab890e78abc.png)
 
 - Continuous Github Metric Measurement Actions
   - We experimented using a Metrics tool that can be used whenever a commit is made (or perhaps enacted on a daily schedule) that updates metrics about a user or the repository.
