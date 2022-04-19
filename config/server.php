@@ -101,18 +101,18 @@ if (isset($_POST['login_user'])) {
 		// entered username exists
 		if (mysqli_num_rows($results) == 1) {
 
-			// Storing username and id in session variables
-			$_SESSION['username'] = $username;
-            $_SESSION['id'] = mysqli_fetch_array($results)['id'];
+		    // Storing username and id in session variables
+		    $_SESSION['username'] = $username;
+                    $_SESSION['id'] = mysqli_fetch_array($results)['id'];
 
-			// Success message
-			$_SESSION['success'] = "You have logged in!";
+	    	    // Success message
+                    $_SESSION['success'] = "You have logged in!";
 
-			// Page on which the user is sent
-			// to after logging in
-            //header('location: index.php');
-            //header('location: User.php');
-            header('location: CreateDataset.php');/////////
+		    // Page on which the user is sent
+		    // to after logging in
+                    //header('location: index.php');
+                    //header('location: User.php');
+                    header('location: CreateDataset.php');
 		}
 		else {
 
@@ -139,10 +139,16 @@ if (isset($_POST['create_dataset'])) {
         array_push($errors, "Title is taken");
     }
 
-    // Ensuring that the title is a valid directory name
-    if (preg_match('/^[\/\w\-. ]+$/', $title)) {
-        array_push($errors, "Title must be a valid directory name");
+    // Create a new directory to store the dataset
+    $db_path = "datasets/" . $title;
+    if (!mkdir($db_path)) {
+        array_push($errors, "ERROR: could not create directory " . $db_path);
     }
+
+    // Ensuring that the title is a valid directory name
+    //if (preg_match('/^[\/\w\-. ]+$/', $title)) {
+    //    array_push($errors, "Title must be a valid directory name");
+    //}
 
     // If the form is error free, then create the dataset
     if (count($errors) == 0) {
@@ -156,22 +162,22 @@ if (isset($_POST['create_dataset'])) {
         mysqli_query($db, $query) or trigger_error(mysqli_error($db));
 
         // Create a new directory to store the dataset
-        $db_path = "datasets/" . $title;
-        if (!mkdir($db_path)) {
-            echo "ERROR: could not create directory " . $db_path;
-        }
-        else {
+        //$db_path = "datasets/" . $title;
+        //if (!mkdir($db_path)) {
+        //    echo "ERROR: could not create directory " . $db_path;
+        //}
+        //else {
             // Success message
             $_SESSION['success'] = "You have created a new dataset";
 
             // Page on which the user will be
             // redirected after logging in
             header('location: User.php');
-        }
+        //}
     }
 }
 
-// Create a new dataset
+// Upload an image to a dataset
 if (isset($_POST['upload_image'])) {
     $target_dir = "datasets/" . $_SESSION['dataset'] . "/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
