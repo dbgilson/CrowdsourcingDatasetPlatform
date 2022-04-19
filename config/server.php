@@ -111,8 +111,8 @@ if (isset($_POST['login_user'])) {
 		    // Page on which the user is sent
 		    // to after logging in
                     //header('location: index.php');
-                    //header('location: User.php');
-                    header('location: CreateDataset.php');
+                    header('location: User.php');
+                    //header('location: CreateDataset.php');
 		}
 		else {
 
@@ -139,7 +139,7 @@ if (isset($_POST['create_dataset'])) {
         array_push($errors, "Title is taken");
     }
 
-    // Create a new directory to store the dataset
+    // Create a new directory to store the dataset and check if successful
     $db_path = "datasets/" . $title;
     if (!mkdir($db_path)) {
         array_push($errors, "ERROR: could not create directory " . $db_path);
