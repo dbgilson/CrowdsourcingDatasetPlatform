@@ -1,4 +1,22 @@
 <?php include('../../config/server.php') ?>
+<?php
+$username = $_SESSION['username'];
+$query="SELECT title, description, tags FROM  internalDatasets
+      INNER JOIN users ON users.id = internalDatasets.owner_id
+      WHERE users.username = '$username'";
+
+$result = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+if (mysqli_num_rows($result) === 0) {
+    echo "You have no datasets.";
+}
+else {
+    foreach($result as $row) {
+        print_r($row);
+    }
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -56,7 +74,7 @@
             echo '<h1 align="left" class="h4 mt-1 mb-5 fw-normal">Current User: ' . $_SESSION['username'] . '</h1>';
         ?>
         <img class="mb-4" src="../assets/checkbox.png" alt="" width="144" height="57">
-        <h1 class=h3 mb-3 fw-normal u"><u>User Contributed Datasets</u></h1>
+        <h1 class=h3 mb-3 fw-normal u><u>User Contributed Datasets</u></h1>
         <table class="table table-striped table-bordered" id="userTable">
             <thead>
                 <tr>
@@ -106,8 +124,8 @@
         </table>
 
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
-    </main>
 
+    </main>
 
 
 </body>
