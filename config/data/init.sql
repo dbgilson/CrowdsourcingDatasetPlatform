@@ -8,7 +8,7 @@ CREATE DATABASE crowdsource_website_db;
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     username VARCHAR(30) NOT NULL,
-    password VARCHAR(30) NOT NULL,
+    password VARCHAR(100) NOT NULL,
     date TIMESTAMP
   );
 
@@ -34,5 +34,3 @@ CREATE DATABASE crowdsource_website_db;
     infoKey2 VARCHAR(30), -- kaggle = number of downloads  ics = number of columns
     infoValue2 VARCHAR(30)
   );
-
-  
