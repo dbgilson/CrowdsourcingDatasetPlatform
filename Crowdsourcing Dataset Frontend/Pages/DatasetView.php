@@ -3,7 +3,31 @@
 <head>
     <meta charset="utf-8">
     <title>Crowdsourcing Dataset Platform</title>
+    <?php
 
+
+$name_error = $username_error = $password_error = $passwordMatch_error = "";
+$name = $username = $password = "";
+$testDatasetObject = [
+    "web_source" => "ICS",
+    "url" => "keggle.com",
+    "title" => "Dataset Title",
+    "licenses" => "open source, other license",
+    "tags" => "test, key, word",
+    "description" => "This is a description of the dataset",
+    "infoKey1" => "Usability Rating",
+    "infoValue1" =>  '.88',
+    "infoKey2" => "Total Downloads",
+    "infoValue2" => '579'
+];
+    $image = "../assets/checkbox.png";
+    if ($testDatasetObject['web_source'] == "Kaggle") {
+        $image = "../assets/kaggle.svg";
+    }elseif ($testDatasetObject['web_source'] == "ICS"){
+        $image = "../assets/ics.jpg";
+    }
+    
+    ?>
     <!-- Bootstrap core CSS -->
     <link href="../bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -59,104 +83,47 @@
                 </ul>
             </header>
         </div>
-        <img class="mb-4" src="../assets/checkbox.png" alt="" width="144" height="57">
-        <!-- <h1 class="h3 mb-3 fw-normal u"><u> <?= $datasetTitle ?> </u></h1>
-        <span>URL Link: <?= ?></span> -->
-        <h1 class="h3 mb-3 fw-normal u"><u> This is the Title </u></h1>
-        <span>URL Link: <a href="https://www.kaggle.com/datasets/kkhandekar/sulfur-dioxide-pollution">https://www.kaggle.com/datasets/kkhandekar/sulfur-dioxide-pollution</a></span>
+        <img class="mb-4" src=<?=$image?> alt="" width="144" height="57">
+        <h1 class="h3 mb-3 fw-normal u"><u> <?= $testDatasetObject['title'] ?> </u></h1>
+        <span>URL Link: <a href=<?=$testDatasetObject['url']?>><?=$testDatasetObject['url']?></a></span>
+        <!-- <h1 class="h3 mb-3 fw-normal u"><u> This is the Title </u></h1>
+        <span>URL Link: <a href="https://www.kaggle.com/datasets/kkhandekar/sulfur-dioxide-pollution">https://www.kaggle.com/datasets/kkhandekar/sulfur-dioxide-pollution</a></span> -->
         <br><br>
         <div class="row">
             <div class="column">
                 <h2>Description</h2>
-                <p> <?= $datasetDescription?> </p>
+                <p> <?= $testDatasetObject['description']?> </p>
             </div>
             <div class="column">
                 <h2>Additional Info</h2>
-                <!-- <span>Source: <?= ?> </span><br>
-                <span>Keywords: <?= ?> </span><br>
-                <span>totalViews: <?= ?> </span><br>
-                <span>Source: <?= ?> </span><br> -->
-                <span>Source: Kaggle </span><br>
-                <span>Tags: Test, Computer, Dragon </span><br>
-                <span>Licenses: Open Source, Whatever an actual license is </span><br>
-                <span>Usability[infoKey1]: .75 </span><br>
-                <span>Number of Downloads[infoKey1]: 7500 (as of 4/5/2022)</span><br>
+                <span>Source: <?= $testDatasetObject['web_source'] ?> </span><br>
+                <span>Tags: <?= $testDatasetObject['tags'] ?> </span><br>
+                <!-- <span>Tags: <?= str_replace(",", " ", $testDatasetObject['tags']) ?> </span><br> -->
+                <span><?=$testDatasetObject['infoKey1'] ?>: <?= $testDatasetObject['infoValue1'] ?> </span><br>
+                <span><?=$testDatasetObject['infoKey2'] ?>: <?= $testDatasetObject['infoValue2'] ?> </span><br>
+                <!-- <span>Licenses: <?= str_replace(",", " ", $testDatasetObject['licenses']) ?> </span><br> -->
+                <span>Licenses: <?= $testDatasetObject['licenses'] ?> </span><br>
             </div>
         </div>
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
     </main>
 
-    <!-- <?php
+    <?php
     $name_error = $username_error = $password_error = $passwordMatch_error = "";
     $name = $username = $password = "";
     $testDatasetObject = [
-        "source" => "kaggle",
+        "web_source" => "kaggle",
+        "url" => "keggle.com",
         "title" => "Dataset Title",
         "licenses" => ["open source", "other license"],
-        "keywords" => ["test", "key", "word"],
-        "Description" => "This is a description of the dataset",
-        "otherInfo" => [
-            "totalViews": 568
-            "totalDownloads": 579
-        ],
+        "tags" => ["test", "key", "word"],
+        "description" => "This is a description of the dataset",
+        "infoKey1" => "Usability Rating",
+        "infoValue1" =>  '.88',
+        "infoKey2" => "Total Downloads",
+        "infoValue2" => '579'
     ]
-    if (isset($_POST['submit'])) {
-    
-      echo "Hello, made it into submit";
-      require "../../config/config.php";
-      require "../../config/common.php";
-    
-      // make sure passwords match
-      if ($_POST["password"] === $_POST["floatingPasswordCheck"]) {
-          // passwords match
-          try {
-            $connection = new PDO($dsn, $username, $password, $options);
-    
-            $name = test_input($_POST["name"]);
-            $username = test_input($_POST["username"]);
-            $password = test_input($_POST["password"]);
-    
-        echo $name;
-        echo $username;
-        echo $password;
-        
-            $new_user = array(
-              "name"      => $_POST['name'],
-              "username"  => $_POST['username'],
-              "password"  => $_POST['password']
-            );
-    
-            $sql = sprintf(
-                "INSERT INTO %s (%s) values (%s)",
-                "users",
-                implode(", ", array_keys($new_user)),
-                ":" . implode(", :", array_keys($new_user))
-            );
-    
-            $statement = $connection->prepare($sql);
-            $statement->execute($new_user);
-          } catch(PDOException $error) {
-              echo $sql . "<br>" . $error->getMessage();
-            }
-    
-            if (isset($_POST['submit']) && $statement) {
-                echo "successfully added";
-            }
-        }
-        else {
-            // passwords do not match
-            echo "Error: passwords must match.";
-            exit;
-        }
-      }
-    
-    function test_input($data) {
-      $data = trim($data);
-      $data = stripslashes($data);
-      $data = htmlspecialchars($data);
-      return $data;
-    }
-    ?> -->
+    ?>
 
 </body>
 </html>
