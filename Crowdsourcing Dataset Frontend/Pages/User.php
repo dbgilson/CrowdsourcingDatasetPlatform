@@ -97,7 +97,7 @@ else {
                 </tr>
             </tbody>
         </table>
-
+        <a href="UploadData.php"><button type="button" class="w-35 mt-1 btn btn-m btn-primary">Create Dataset</button></a>
         <h1 class="h3 mt-5 mb-3 fw-normal u"><u>Modification Requests</u></h1>
 
         <table class="table table-striped table-bordered" id="userTable">
@@ -130,3 +130,4 @@ else {
 
 </body>
 </html>
+
