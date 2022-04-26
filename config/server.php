@@ -216,4 +216,13 @@ if (isset($_POST['upload_image'])) {
     }
 }
 
+// Delete an image from a dataset
+if (isset($_POST['delete_image'])) {
+    // FIXME Make it so only the dataset owner can delete images
+
+    if (!unlink($_POST['delete_image'])) {
+        array_push($errors, "File counld not be deleted");
+    }
+}
+
 ?>
