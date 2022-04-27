@@ -1,22 +1,4 @@
 <?php include('../../config/server.php') ?>
-<?php
-$username = $_SESSION['username'];
-$query="SELECT title, description, tags FROM  internalDatasets
-      INNER JOIN users ON users.id = internalDatasets.owner_id
-      WHERE users.username = '$username'";
-
-$result = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
-if (mysqli_num_rows($result) === 0) {
-    echo "You have no datasets.";
-}
-else {
-    foreach($result as $row) {
-        print_r($row);
-    }
-}
-
-?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -80,22 +62,37 @@ else {
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Tags</th>
-                    <th scope="col">Contributors</th>
                     <th scope="col">Files</th>
-                    <th scope="col">Modification</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Sunflower Photograph Set</td>
-                    <td>Photo, Flower, Sunflower</td>
-                    <td>USERNAME</td>
-                    <td>FILE LINK HERE</td>
-                    <td><a href="DataModify.html">MODIFY</a></td>
-                </tr>
-            </tbody>
+            <?php
+            $index = 0;
+                $username = $_SESSION['username'];
+                $query="SELECT title, description, tags FROM  internalDatasets
+                      INNER JOIN users ON users.id = internalDatasets.owner_id
+                      WHERE users.username = '$username'";
+                
+                $result = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+                if (mysqli_num_rows($result) === 0) {
+                    echo '<h1 align="center" class="h4 mt-1 mb-5 fw-normal">You Have No Datasets.</h1>';
+                }
+                else{
+                    echo "<tbody>";
+                    foreach($result as $row) {
+                        echo    "<tr>";
+                        echo        '<th scope="row">'. $index . '</th>';
+                        echo        '<td>'.$row["title"].'</td>';
+                        echo        '<td>'.$row["description"].'</td>';
+                        echo        '<td>'.$row["tags"].'</td>';
+                        echo        '<td><a href="DisplayDataset.php">View Dataset</a></td>';
+                        echo    "</tr>";
+                        $index++;
+                    }
+                    echo "</tbody>";
+                }
+            ?>
         </table>
         <a href="CreateDataset.php"><button type="button" class="w-35 mt-1 btn btn-m btn-primary">Create Dataset</button></a>
         <h1 class="h3 mt-5 mb-3 fw-normal u"><u>Modification Requests</u></h1>
@@ -108,7 +105,6 @@ else {
                     <th scope="col">Tags</th>
                     <th scope="col">Contributors</th>
                     <th scope="col">Files</th>
-                    <th scope="col">Modification</th>
                 </tr>
             </thead>
             <tbody>
@@ -118,7 +114,6 @@ else {
                     <td>Photo, Flower, Sunflower</td>
                     <td>USERNAME</td>
                     <td>FILE LINK HERE</td>
-                    <td><a href="DataModify.html">MODIFY</a></td>
                 </tr>
             </tbody>
         </table>
