@@ -1,7 +1,7 @@
 <?php include('../../config/server.php') ?>
 
 <?php
-$dataset_name = "Plants";
+$dataset_name = $_SESSION['dataset'];
 $dirname = "datasets/" . $dataset_name . "/";
 $images = glob($dirname."*.*");
 

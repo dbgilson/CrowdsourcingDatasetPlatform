@@ -225,4 +225,8 @@ if (isset($_POST['delete_image'])) {
     }
 }
 
+if (isset($_GET['dataset'])) {
+    $_SESSION['dataset'] = $_GET['dataset'];
+}
+
 ?>

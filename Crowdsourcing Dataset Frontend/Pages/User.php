@@ -86,7 +86,7 @@
                         echo        '<td>'.$row["title"].'</td>';
                         echo        '<td>'.$row["description"].'</td>';
                         echo        '<td>'.$row["tags"].'</td>';
-                        echo        '<td><a href="DisplayDataset.php">View Dataset</a></td>';
+                        echo        '<td><a href="DisplayDataset.php?dataset=' . $row["title"] . '">View Dataset</a></td>';
                         echo    "</tr>";
                         $index++;
                     }
