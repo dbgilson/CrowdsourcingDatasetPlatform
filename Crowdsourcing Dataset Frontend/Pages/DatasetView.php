@@ -1,33 +1,47 @@
+<!-- 
+    This page is for displaying external datasets only.
+    DisplayDataset.php is for internal datasets. 
+-->
+<?php include('../../config/server.php') ?>
+<?php
+// session_start();
+function redirect($url) {
+    ob_start();
+    header('Location: '.$url);
+    ob_end_flush();
+    die();
+}
+if(!isset($_SESSION['id'])) {
+    redirect("location: SearchPage.php");
+}
+
+$datasetID = $_SESSION['id'];
+$name_error = $username_error = $password_error = $passwordMatch_error = "";
+$name = $username = $password = "";
+
+$query="SELECT * FROM  externalDatasets
+    WHERE id = $datasetID";
+
+$result = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+if (mysqli_num_rows($result) === 0) {
+    echo '<h1 align="center" class="h4 mt-1 mb-5 fw-normal">You Have No Datasets.</h1>';
+}
+
+$DatasetObject = $result->fetch_assoc();
+
+    $image = "../assets/checkbox.png";
+    if ($DatasetObject['web_source'] == "Kaggle") {
+        $image = "../assets/kaggle.svg";
+    }elseif ($DatasetObject['web_source'] == "ICS"){
+        $image = "../assets/ics.jpg";
+    }
+    
+    ?>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Crowdsourcing Dataset Platform</title>
-    <?php
-
-
-$name_error = $username_error = $password_error = $passwordMatch_error = "";
-$name = $username = $password = "";
-$testDatasetObject = [
-    "web_source" => "ICS",
-    "url" => "keggle.com",
-    "title" => "Dataset Title",
-    "licenses" => "open source, other license",
-    "tags" => "test, key, word",
-    "description" => "This is a description of the dataset",
-    "infoKey1" => "Usability Rating",
-    "infoValue1" =>  '.88',
-    "infoKey2" => "Total Downloads",
-    "infoValue2" => '579'
-];
-    $image = "../assets/checkbox.png";
-    if ($testDatasetObject['web_source'] == "Kaggle") {
-        $image = "../assets/kaggle.svg";
-    }elseif ($testDatasetObject['web_source'] == "ICS"){
-        $image = "../assets/ics.jpg";
-    }
-    
-    ?>
     <!-- Bootstrap core CSS -->
     <link href="../bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -84,46 +98,28 @@ $testDatasetObject = [
             </header>
         </div>
         <img class="mb-4" src=<?=$image?> alt="" width="144" height="57">
-        <h1 class="h3 mb-3 fw-normal u"><u> <?= $testDatasetObject['title'] ?> </u></h1>
-        <span>URL Link: <a href=<?=$testDatasetObject['url']?>><?=$testDatasetObject['url']?></a></span>
-        <!-- <h1 class="h3 mb-3 fw-normal u"><u> This is the Title </u></h1>
-        <span>URL Link: <a href="https://www.kaggle.com/datasets/kkhandekar/sulfur-dioxide-pollution">https://www.kaggle.com/datasets/kkhandekar/sulfur-dioxide-pollution</a></span> -->
+
+        <h1 class="h3 mb-3 fw-normal u"><u> <?= $DatasetObject['title'] ?> </u></h1>
+
+        <span>URL Link: <a target=blank href=<?=$DatasetObject['url']?>><?=$DatasetObject['url']?></a></span>
+
         <br><br>
         <div class="row">
             <div class="column">
                 <h2>Description</h2>
-                <p> <?= $testDatasetObject['description']?> </p>
+                <p> <?= $DatasetObject['description']?> </p>
             </div>
             <div class="column">
                 <h2>Additional Info</h2>
-                <span>Source: <?= $testDatasetObject['web_source'] ?> </span><br>
-                <span>Tags: <?= $testDatasetObject['tags'] ?> </span><br>
-                <!-- <span>Tags: <?= str_replace(",", " ", $testDatasetObject['tags']) ?> </span><br> -->
-                <span><?=$testDatasetObject['infoKey1'] ?>: <?= $testDatasetObject['infoValue1'] ?> </span><br>
-                <span><?=$testDatasetObject['infoKey2'] ?>: <?= $testDatasetObject['infoValue2'] ?> </span><br>
-                <!-- <span>Licenses: <?= str_replace(",", " ", $testDatasetObject['licenses']) ?> </span><br> -->
-                <span>Licenses: <?= $testDatasetObject['licenses'] ?> </span><br>
+                <span>Source: <?= $DatasetObject['web_source'] ?> </span><br>
+                <span>Tags: <?= $DatasetObject['tags'] ?> </span><br>
+                <span><?=$DatasetObject['infoKey1'] ?>: <?= $DatasetObject['infoValue1'] ?> </span><br>
+                <span><?=$DatasetObject['infoKey2'] ?>: <?= $DatasetObject['infoValue2'] ?> </span><br>
+                <span>Licenses: <?= $DatasetObject['licenses'] ?> </span><br>
             </div>
         </div>
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
     </main>
-
-    <?php
-    $name_error = $username_error = $password_error = $passwordMatch_error = "";
-    $name = $username = $password = "";
-    $testDatasetObject = [
-        "web_source" => "kaggle",
-        "url" => "keggle.com",
-        "title" => "Dataset Title",
-        "licenses" => ["open source", "other license"],
-        "tags" => ["test", "key", "word"],
-        "description" => "This is a description of the dataset",
-        "infoKey1" => "Usability Rating",
-        "infoValue1" =>  '.88',
-        "infoKey2" => "Total Downloads",
-        "infoValue2" => '579'
-    ]
-    ?>
 
 </body>
 </html>

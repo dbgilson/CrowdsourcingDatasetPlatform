@@ -12,7 +12,7 @@ $_SESSION['success'] = "";
 
 // DBMS connection code -> hostname,
 // username, password, database name
-$db = mysqli_connect('127.0.0.1', 'db_admin', 'password', 'crowdsource_website_db');
+$db = mysqli_connect('127.0.0.1', 'root', '', 'crowdsource_website_db');
 
 // Registration code
 if (isset($_POST['reg_user'])) {
@@ -225,8 +225,54 @@ if (isset($_POST['delete_image'])) {
     }
 }
 
+// Search Datasets
+if (isset($_POST['search_datasets'])) {
+    $_SESSION['search_performed'] = True;
+	// Data sanitization to prevent SQL injection
+    try {
+        error_reporting(E_ERROR | E_PARSE);
+        $searchString = mysqli_real_escape_string($db, $_POST['searchString']);
+        if (empty($searchString)) {
+            array_push($errors, "Must enter some search term");
+        }
+        
+        $searchTerms = explode(" ", trim($searchString)) ;
+    
+        $queryIn = "SELECT * FROM internalDatasets WHERE "; 
+        $queryEx = "SELECT * FROM externalDatasets WHERE ";
+    
+        foreach ($searchTerms as &$term) {
+            $queryIn .= "tags LIKE '%$term%' OR title LIKE '%$term%' OR ";
+            $queryEx .= "tags LIKE '%$term%' OR title LIKE '%$term%' OR ";
+        }
+        $queryIn = substr($queryIn, 0, -3);
+        $queryEx = substr($queryEx, 0, -3);
+    }catch(Error) {
+        array_push($errors, "Must enter some search term");
+    }
+	// Error message if the input field is left blank
+    // Checking for the errors
+	if (count($errors) == 0) {
+
+		$resultsEx = mysqli_query($db, $queryEx);
+        $resultsIn = mysqli_query($db, $queryIn);
+
+        $_SESSION['ex_search_results'] = $resultsEx;
+        $_SESSION['in_search_results'] = $resultsIn;
+    } else {
+        ;
+        // If the username and password doesn't match
+        // array_push($errors, "Username or password incorrect");
+    }
+}
+
 if (isset($_GET['dataset'])) {
     $_SESSION['dataset'] = $_GET['dataset'];
 }
+
+if (isset($_GET['id'])) {
+    $_SESSION['id'] = $_GET['id'];
+}
+
 
 ?>
