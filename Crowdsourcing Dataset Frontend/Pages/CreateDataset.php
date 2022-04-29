@@ -55,7 +55,7 @@
           <?php
             echo '<h1 align="left" class="h4 mt-1 mb-5 fw-normal">Current User: ' . $_SESSION['username'] . '</h1>';
           ?>
-          <form class="create-dataset" method="post" action="CreateDataset.php">
+          <form class="form-upload" method="post" action="CreateDataset.php" enctype="multipart/form-data">
           <?php include('../../config/errors.php'); ?>
               <img class="mb-4" src="../assets/checkbox.png" alt="" width="144" height="57">
               <h1 class="h3 mb-3 fw-normal u"><u>Dataset Upload</u></h1>
@@ -73,6 +73,11 @@
               <div class="form-floating mb-3">
                     <textarea class="form-control" name="tags" id="tags" placeholder="Tags""></textarea>
                     <label for="description">Tags</label>
+              </div>
+
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Select Images to Upload</label>
+                <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" multiple>
               </div>
 
               <button type="submit" class="w-50 btn btn-lg btn-primary" name="create_dataset">Create Dataset</button>
