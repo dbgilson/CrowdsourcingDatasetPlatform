@@ -90,10 +90,22 @@ $DatasetObject = $result->fetch_assoc();
                 </a>
 
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Login</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Search</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Profile</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
+                <?php  
+                        if(isset($_SESSION['username'])) {
+                            echo '<a class="navbar-brand">'. $_SESSION['username'] .'</a>';
+                        }else {
+                            echo '<li class="nav-item"><a href="Login.php" class="nav-link" aria-current="page">Login</a></li>';
+                        }
+                    ?>
+                      <li class="nav-item"><a href="SearchPage.php" class="nav-link">Search</a></li>
+                      <li class="nav-item"><a href="User.php" class="nav-link">Profile</a></li>
+                      <?php  
+                        if(isset($_SESSION['username'])) {
+                            echo '<li class="nav-item"><a href="Logout.php" class="nav-link" aria-current="page">Logout</a></li>';
+                        }else {
+                            echo '<li class="nav-item"><a href="Register.php" class="nav-link">Register</a></li>';
+                        }
+                    ?>
                 </ul>
             </header>
         </div>

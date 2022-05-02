@@ -6,8 +6,9 @@ function isFreed(mysqli_result $result) {
     return @($result->num_rows === NULL);
 }
 // unset($_POST['searchString']);
-
-$username = $_SESSION['username'];
+if(isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
 $foundDatasets = 0;
 $displayExResults = false;
 $displayInResults = false;
@@ -77,16 +78,28 @@ try {
                 </a>
 
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Login</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Search</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Profile</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
+                <?php  
+                        if(isset($_SESSION['username'])) {
+                            echo '<a class="navbar-brand">'. $_SESSION['username'] .'</a>';
+                        }else {
+                            echo '<li class="nav-item"><a href="Login.php" class="nav-link" aria-current="page">Login</a></li>';
+                        }
+                    ?>
+                      <li class="nav-item"><a href="SearchPage.php" class="nav-link active">Search</a></li>
+                      <li class="nav-item"><a href="User.php" class="nav-link">Profile</a></li>
+                      <?php  
+                        if(isset($_SESSION['username'])) {
+                            echo '<li class="nav-item"><a href="Logout.php" class="nav-link" aria-current="page">Logout</a></li>';
+                        }else {
+                            echo '<li class="nav-item"><a href="Register.php" class="nav-link">Register</a></li>';
+                        }
+                    ?>
                 </ul>
             </header>
         </div>
-        <?php
+        <!-- <?php
             echo '<h1 align="left" class="h4 mt-1 mb-5 fw-normal">Current User: ' . $_SESSION['username'] . '</h1>';
-        ?>
+        ?> -->
         <!-- <?php include('../../config/errors.php'); ?> -->
 
 
@@ -123,7 +136,7 @@ try {
                             <td>'. $row['title']. '</td>
                             <td>'. $row["tags"] .'</td>';
                             echo '<td>(External) '. $row['web_source'] .'</td>';
-                            echo '<td><a href="DatasetView.php?id= '.$row['id'] . '">LINK</a></td>
+                            echo '<td><a href="DatasetView.php?id= '.$row['id'] . '">Details</a></td>
                         </tr>';
                     }
                 }
@@ -135,7 +148,7 @@ try {
                         <td>'. $row['title']. '</td>
                         <td>'. $row["tags"] .'</td>';
                         echo'<td>'. $row['owner_id'].'</td>';
-                        echo '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'">LINK</a></td>
+                        echo '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'">Details</a></td>
                         </tr>';
                     }
                 }
