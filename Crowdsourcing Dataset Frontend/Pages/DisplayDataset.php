@@ -75,9 +75,10 @@
             $images = glob($dirname."*.*");
 
 
-            if(empty($images))
+            if(empty($images)){
                 echo $dirname;
                 echo "This dataset has no images. <br>";
+            }
 
             foreach($images as $image) {
                 echo "<img src=\"" . $image . "\" height=\"130\" width=\"150\" />";
