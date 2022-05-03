@@ -35,6 +35,8 @@ kaggleData2 = pd.read_csv('dbReadyKaggle.csv', converters={'title': lambda x: x[
 print(icsData2.columns)
 icsData2.drop('Unnamed: 0', inplace=True, axis=1)
 kaggleData2.drop('Unnamed: 0', inplace=True, axis=1)
+kaggleData2.fillna("", inplace=True)
+icsData2.fillna("", inplace=True)
 
 for i,row in icsData2.iterrows():
             #here %S means string values
