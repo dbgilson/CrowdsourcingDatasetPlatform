@@ -69,6 +69,12 @@
           ?>
 
           <?php include('../../config/errors.php'); ?>
+          <div class="container">
+            <?php
+                echo '<h1 align="middle" class="h4 mt-1 mb-5 fw-normal">' . $_GET["dataset"] . '</h1>';
+            ?>
+            <a href="UploadData.php"><button type="button" class="w-35 mt-1 mb-5 btn btn-m btn-primary">Upload Data</button></a>
+          </div>
           <?php
             $dataset_name = $_GET["dataset"];
             $dirname = "datasets/" . $dataset_name . "/";
@@ -84,9 +90,12 @@
                 echo "<img src=\"" . $image . "\" height=\"130\" width=\"150\" />";
 
                 echo '<form method="POST" action="DisplayDataset.php">';
-                echo '<button name="delete_image" value="'. $image . '">';
-                echo 'Delete';
-                echo '</button>';
+
+                if($_GET["owner_id"] == $_SESSION["id"]){
+                    echo '<button name="delete_image" value="'. $image . '">';
+                    echo 'Delete';
+                    echo '</button>';
+                }
                 echo '</form>';
 
             }
