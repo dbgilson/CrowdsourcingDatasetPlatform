@@ -104,7 +104,7 @@ if(!isset($_SESSION['username'])) {
                         echo        '<td>'.$row["title"].'</td>';
                         echo        '<td>'.$row["description"].'</td>';
                         echo        '<td>'.$row["tags"].'</td>';
-                        echo        '<td><a href="DisplayDataset.php?dataset=' . $row["title"] . '">View Dataset</a></td>';
+                        echo        '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'&owner_id=' . $_SESSION["id"] . '">View Dataset</a></td>';
                         echo    "</tr>";
                         $index++;
                     }
