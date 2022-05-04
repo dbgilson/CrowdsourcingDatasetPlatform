@@ -255,7 +255,27 @@ if (isset($_POST['delete_image'])) {
     }
 }
 
-// FIXME create a function to delete a dataset
+// Delete a dataset
+if (isset($_POST['delete_dataset'])) {
+    $dataset = $_SESSION['dataset'];
+    $dataset_path = './datasets/' . $dataset;
+
+    // Remove the dataset from the internalDatasets table
+    $query = "DELETE FROM internalDatasets WHERE title='" . $dataset . "';";
+    mysqli_query($db, $query);
+
+    // Delete the dataset directory
+    foreach (scandir($dataset_path) as $item) {
+        if ($item == '.' || $item == '..') {
+            continue;
+        }
+        else {
+            $file_path = $dataset_path . "/" . $item;
+            unlink($file_path);
+        }
+    }
+    rmdir($dataset_path);
+}
 
 // Zips up a dataset directory and downloads it
 if (isset($_POST['download_dataset'])) {
