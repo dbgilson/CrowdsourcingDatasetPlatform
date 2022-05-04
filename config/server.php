@@ -56,19 +56,27 @@ if (isset($_POST['reg_user'])) {
                 $query = "INSERT INTO users (name, username, password)
                                 VALUES('$name', '$username', '$password')";
 
-                mysqli_query($db, $query);
+             mysqli_query($db, $query);
+             
+             $query = "SELECT * FROM users WHERE username=
+                    '$username' AND password='$password'";
+             $results = mysqli_query($db, $query);
 
-		// Storing username of the logged in user,
-		// in the session variable
-		$_SESSION['username'] = $username;
+            // $results = 1 means that one user with the
+            // entered username exists
+            if (mysqli_num_rows($results) == 1) {
 
-		// Success message
-		$_SESSION['success'] = "You have logged in";
+                // Storing username and id in session variables
+                 $_SESSION['username'] = $username;
+                 $_SESSION['id'] = mysqli_fetch_array($results)['id'];
 
-		// Page on which the user will be
-		// redirected after logging in
-        // header('location: index.php');
-        header('location: User.php');
+                    // Success message
+                 $_SESSION['success'] = "You have logged in!";
+
+                // Page on which the user is sent
+                     // to after logging in
+                 header('location: User.php');
+     	    }
 	}
 }
 
