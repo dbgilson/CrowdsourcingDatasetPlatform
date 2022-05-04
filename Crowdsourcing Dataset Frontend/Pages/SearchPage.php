@@ -148,7 +148,7 @@ try {
                         <td>'. $row['title']. '</td>
                         <td>'. $row["tags"] .'</td>';
                         echo'<td>'. $row['owner_id'].'</td>';
-                        echo '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'">Details</a></td>
+                        echo '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'&owner_id=' . $row['owner_id'] . '">Details</a></td>
                         </tr>';
                     }
                 }
