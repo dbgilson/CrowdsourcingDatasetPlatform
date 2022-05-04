@@ -255,6 +255,61 @@ if (isset($_POST['delete_image'])) {
     }
 }
 
+// FIXME create a function to delete a dataset
+
+// Zips up a dataset directory and downloads it
+if (isset($_POST['download_dataset'])) {
+    // Get real path for our folder
+    $rootPath = realpath('./datasets/Plants');
+    //$zipFile = $_SESSION['dataset'] . '.zip';
+    $zipFile = 'Plants.zip';
+
+    // Initialize archive object
+    $zip = new ZipArchive();
+    $zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+    // Create recursive directory iterator
+    /** @var SplFileInfo[] $files */
+    $files = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($rootPath),
+        RecursiveIteratorIterator::LEAVES_ONLY
+    );
+
+    foreach ($files as $name => $file)
+    {
+        // Skip directories (they would be added automatically)
+        if (!$file->isDir())
+        {
+            // Get real and relative path for current file
+            $filePath = $file->getRealPath();
+            $relativePath = substr($filePath, strlen($rootPath) + 1);
+
+            // Add current file to archive
+            $zip->addFile($filePath, $relativePath);
+        }
+    }
+
+    // Zip archive will be created only after closing object
+    $zip->close();
+
+    //Force download a file in php
+    if (file_exists($zipFile)) {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . basename($zipFile) . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($zipFile));
+            readfile($zipFile);
+    }
+
+    // Delete the created .zip file
+    if (!unlink($zipFile)) {
+        array_push($errors, "File counld not be deleted");
+    }
+}
+
 // Search Datasets
 if (isset($_POST['search_datasets'])) {
     $_SESSION['search_performed'] = True;
