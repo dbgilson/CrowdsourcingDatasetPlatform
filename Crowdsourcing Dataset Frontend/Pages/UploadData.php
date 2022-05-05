@@ -73,7 +73,7 @@
         <?php include('../../config/errors.php'); ?>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Select Images to Upload</label>
-                <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" multiple>
+                <input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple>
             </div>
 
             <input type="submit" class="w-75 btn btn-lg btn-primary" value="Upload Image" name="upload_image">
