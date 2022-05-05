@@ -210,14 +210,9 @@ if (isset($_POST['create_dataset'])) {
 // Upload an image to a dataset
 if (isset($_POST['upload_image'])) {
     $target_dir = "datasets/" . $_SESSION['dataset'] . "/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
-    // Check if image file is a actual image or fake image
-    //$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-    //echo $check;
-    //if($check !== true) {
-    //    array_push($errors, "File must be an image");
-    //}
+    $countfiles = count($_FILES["fileToUpload"]["name"]);
+    for($i = 0; $i < $countfiles; $i++){
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"][$i]);
 
     // Check if file already exists
     if (file_exists($target_file)) {
@@ -225,7 +220,7 @@ if (isset($_POST['upload_image'])) {
     }
 
     // Check file size
-    if ($_FILES["fileToUpload"]["size"] > 500000) {
+    if ($_FILES["fileToUpload"]["size"][$i] > 500000) {
         array_push($errors, "File is too large");
     }
 
@@ -237,13 +232,14 @@ if (isset($_POST['upload_image'])) {
 
     // If the form is error free, then create the dataset
     if (count($errors) == 0) {
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file)) {
             $_SESSION['success'] = "You have successfully uploaded a file";
         }
         else {
             echo "Error uploading your file.";
         }
     }
+}
 }
 
 // Delete an image from a dataset
