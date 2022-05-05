@@ -113,6 +113,70 @@ if(!isset($_SESSION['username'])) {
             ?>
         </table>
         <a href="CreateDataset.php"><button type="button" class="w-35 mt-1 btn btn-m btn-primary">Create Dataset</button></a>
+
+        <h1 class=h3 mb-3 fw-normal u><u>Saved Datasets</u></h1>
+        <table class="table table-striped table-bordered" id="userTable">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Tags</th>
+                    <th scope="col">Contributors</th>
+                    <th scope="col">View</th>
+                </tr>
+            </thead>
+            <?php
+            $index = 0;
+                $username = $_SESSION['username'];
+                $query="SELECT id.*
+                    FROM users u
+                    INNER JOIN userInternalDatasets ui
+                    ON ui.user_id = u.id
+                    INNER JOIN internalDatasets id
+                    ON id.id = ui.internal_id
+                    WHERE u.username = '$username'";
+                
+                $resultInternal = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+                
+                $query="SELECT ed.*
+                    FROM users u
+                    INNER JOIN userExternalDatasets ued
+                    ON ued.user_id = u.id
+                    INNER JOIN externalDatasets ed
+                    ON ed.id = ued.external_id
+                    WHERE u.username = '$username'";
+                
+                $resultExternal = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+                if (mysqli_num_rows($resultInternal) === 0 && mysqli_num_rows($resultExternal) === 0) {
+                    echo '<h1 align="center" class="h4 mt-1 mb-5 fw-normal">You have no saved datasets.</h1>';
+                }
+                else{
+                    echo "<tbody>";
+                    foreach($resultInternal as $row) {
+                        echo    "<tr>";
+                        echo        '<th scope="row">'. $index . '</th>';
+                        echo        '<td>'.$row["title"].'</td>';
+                        echo        '<td>'.$row["tags"].'</td>';
+                        echo        '<td>'. $row['owner_id'].'</td>';
+                        echo        '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'&owner_id=' . $_SESSION["id"] . '">View Dataset</a></td>';
+                        echo    "</tr>";
+                        $index++;
+                    }
+                    foreach($resultExternal as $row) {
+                        echo    "<tr>";
+                        echo        '<th scope="row">'. $index . '</th>';
+                        echo        '<td>'.$row["title"].'</td>';
+                        echo        '<td>'.$row["tags"].'</td>';
+                        echo        '<td>(External) '. $row['web_source'] .'</td>';
+                        echo        '<td><a href="DatasetView.php?id='. $row['id'] . '">View Dataset</a></td>';
+                        echo    "</tr>";
+                        $index++;
+                    }
+                    echo "</tbody>";
+                }
+            ?>
+        </table>
+
         <h1 class="h3 mt-5 mb-3 fw-normal u"><u>Modification Requests</u></h1>
 
         <table class="table table-striped table-bordered" id="userTable">

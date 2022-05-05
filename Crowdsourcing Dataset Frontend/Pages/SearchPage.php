@@ -128,18 +128,6 @@ try {
             <?php 
                 echo '<tbody>';
                 $count = 1;
-                if($displayExResults) {
-                    // echo count(($_SESSION['search_results']));
-                    while($row = $_SESSION['ex_search_results']->fetch_assoc()) {
-                        echo '<tr>
-                            <th scope="row">'. $count++ .'</th>
-                            <td>'. $row['title']. '</td>
-                            <td>'. $row["tags"] .'</td>';
-                            echo '<td>(External) '. $row['web_source'] .'</td>';
-                            echo '<td><a href="DatasetView.php?id= '.$row['id'] . '">Details</a></td>
-                        </tr>';
-                    }
-                }
                 if($displayInResults) {
                     // echo count(($_SESSION['search_results']));
                     while($row = $_SESSION['in_search_results']->fetch_assoc()) {
@@ -149,6 +137,18 @@ try {
                         <td>'. $row["tags"] .'</td>';
                         echo'<td>'. $row['owner_id'].'</td>';
                         echo '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'&owner_id=' . $row['owner_id'] . '">Details</a></td>
+                        </tr>';
+                    }
+                }
+                if($displayExResults) {
+                    // echo count(($_SESSION['search_results']));
+                    while($row = $_SESSION['ex_search_results']->fetch_assoc()) {
+                        echo '<tr>
+                            <th scope="row">'. $count++ .'</th>
+                            <td>'. $row['title']. '</td>
+                            <td>'. $row["tags"] .'</td>';
+                            echo '<td>(External) '. $row['web_source'] .'</td>';
+                            echo '<td><a href="DatasetView.php?id= '.$row['id'] . '">Details</a></td>
                         </tr>';
                     }
                 }

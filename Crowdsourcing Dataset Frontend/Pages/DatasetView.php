@@ -16,8 +16,24 @@ if(!isset($_SESSION['id'])) {
 }
 
 $datasetID = $_SESSION['id'];
-$name_error = $username_error = $password_error = $passwordMatch_error = "";
-$name = $username = $password = "";
+$alreadySaved = false;
+if(isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+    
+    $query = "SELECT * FROM users WHERE username=
+                    '$username'";
+    $results = mysqli_query($db, $query);
+    $user_id = mysqli_fetch_array($results)['id'];
+    
+    $query="SELECT *
+            FROM userExternalDatasets 
+            WHERE user_id = '$user_id' AND external_id = '$datasetID'";
+    $result = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+    
+    if (mysqli_num_rows($result) !== 0) {
+        $alreadySaved = true;
+    }
+}
 
 $query="SELECT * FROM  externalDatasets
     WHERE id = $datasetID";
@@ -114,6 +130,33 @@ $DatasetObject = $result->fetch_assoc();
         <h1 class="h3 mb-3 fw-normal u"><u> <?= $DatasetObject['title'] ?> </u></h1>
 
         <span>URL Link: <a target=blank href=<?=$DatasetObject['url']?>><?=$DatasetObject['url']?></a></span>
+
+        <?php 
+            if(isset($_SESSION['username'])) {
+                if($alreadySaved) {
+                    echo '
+                    <div>
+                    <span>Remove Dataset From Profile:</span>
+                    <form name="remove_dataset_external" method="post">
+                    <button type="submit" class="btn btn-info" name="remove_dataset_external">Unfollow</button>
+                    </form>
+                    </div>
+                    ';
+                }else{
+                    echo '
+                    <div>
+                    <span>Save Dataset To Profile:</span>
+                    <form name="save_dataset_external" method="post">
+                    <button type="submit" class="btn btn-info" name="save_dataset_external">Follow</button>
+                    </form>
+                    </div>
+                    ';
+                }
+            }else{
+                echo '<span>Login to save to profile!';
+            }
+        ?>
+
 
         <br><br>
         <div class="row">

@@ -1,4 +1,30 @@
 <?php include('../../config/server.php') ?>
+<?php 
+$alreadySaved = false;
+$datasetTitle = $_GET['dataset'];
+
+if(isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+    
+    $query = "SELECT * FROM users WHERE username=
+                    '$username'";
+    $results = mysqli_query($db, $query);
+    $user_id = mysqli_fetch_array($results)['id'];
+    
+    $query = "SELECT * FROM internalDatasets WHERE title=                 '$datasetTitle'";
+    $results = mysqli_query($db, $query);
+    $datasetID = mysqli_fetch_array($results)['id'];
+    
+    $query="SELECT *
+            FROM userInternalDatasets 
+            WHERE user_id = '$user_id' AND internal_id = '$datasetID'";
+    $result = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+    
+    if (mysqli_num_rows($result) !== 0) {
+        $alreadySaved = true;
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -64,9 +90,6 @@
                   </ul>
               </header>
           </div>
-          <?php
-            echo '<h1 align="left" class="h4 mt-1 mb-5 fw-normal">Current User: ' . $_SESSION['username'] . '</h1>';
-          ?>
 
           <?php include('../../config/errors.php'); ?>
           <div class="container">
@@ -80,6 +103,29 @@
                 echo '<form name="download_dataset" method="post">';
                 echo '<button type="submit" class="btn btn-info mb-2" name="download_dataset">Download Zip</button>';
                 echo '</form>';
+            ?>
+          </div>
+          <div class="container">
+          <?php
+            if(isset($_SESSION['username'])) {
+                if($alreadySaved) {
+                    echo '
+                    <span>Remove Dataset From Profile:</span>
+                    <form name="remove_dataset_internal" method="post">
+                    <button type="submit" class="btn btn-info" name="remove_dataset_internal">Unfollow</button>
+                    </form>
+                    ';
+                }else{
+                    echo '
+                    <span>Save Dataset To Profile:</span>
+                    <form name="save_dataset_internal" method="post">
+                    <button type="submit" class="btn btn-info" name="save_dataset_internal">Follow</button>
+                    </form>
+                    ';
+                }
+            }else{
+                echo '<span>Login to save to profile!';
+            }
             ?>
           </div>
           <?php

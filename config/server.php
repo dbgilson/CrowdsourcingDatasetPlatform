@@ -369,6 +369,155 @@ if (isset($_POST['search_datasets'])) {
     }
 }
 
+// Create a new dataset
+if (isset($_POST['save_dataset_external'])) {
+    $datasetID = mysqli_real_escape_string($db, $_SESSION['id']);
+    
+    // Ensuring that the user has not left any input field blank
+    // error messages will be displayed for every blank input that is required
+    if (empty($datasetID)) { array_push($errors, "Dataset ID is required"); }
+
+    $username = $_SESSION['username'];
+
+    $query = "SELECT * FROM users WHERE username=
+                '$username'";
+    $results = mysqli_query($db, $query);
+
+    // $results = 1 means that user was found
+    if (mysqli_num_rows($results) != 1) {
+        array_push($errors, "No user logged in");
+    }else{
+        $user_id = mysqli_fetch_array($results)['id'];
+        $query = "SELECT * FROM userExternalDatasets
+                    WHERE user_id='$user_id' AND external_id='$datasetID'";
+        $results = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+        if (mysqli_num_rows($results) != 0) {
+            array_push($errors, "Dataset already saved to profile");
+        }
+    }
+
+    // If the form is error free, then save the dataset
+    if (count($errors) == 0) {
+        $query = "INSERT INTO userExternalDatasets (user_id, external_id)
+                    VALUES('$user_id', '$datasetID')";
+        mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+        
+        $_SESSION['success'] = "You have saved a dataset to your profile";
+
+
+    }
+}
+
+if (isset($_POST['remove_dataset_external'])) {
+    $datasetID = mysqli_real_escape_string($db, $_SESSION['id']);
+
+    // Ensuring that the user has not left any input field blank
+    // error messages will be displayed for every blank input that is required
+    if (empty($datasetID)) { array_push($errors, "Dataset ID is required"); }
+
+    $username = $_SESSION['username'];
+
+    $query = "SELECT * FROM users WHERE username=
+                '$username'";
+    $results = mysqli_query($db, $query);
+
+    // $results = 1 means that user was found
+    if (mysqli_num_rows($results) != 1) {
+        array_push($errors, "No user logged in");
+    }else{
+        $user_id = mysqli_fetch_array($results)['id'];
+    }
+    
+    // If the form is error free, then save the dataset
+    if (count($errors) == 0) {
+        $query = "DELETE FROM userExternalDatasets
+                    WHERE user_id='$user_id' AND external_id='$datasetID'";
+        mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+        
+        $_SESSION['success'] = "You have removed a dataset from your profile";
+    }
+}
+
+
+// Create a new dataset
+if (isset($_POST['save_dataset_internal'])) {
+    $datasetName = mysqli_real_escape_string($db, $_SESSION['dataset']);
+
+    // Ensuring that the user has not left any input field blank
+    // error messages will be displayed for every blank input that is required
+    if (empty($datasetName)) { array_push($errors, "Dataset ID is required"); }
+
+    $query = "SELECT * FROM internalDatasets WHERE title=
+                    '$datasetName'";
+    $results = mysqli_query($db, $query);
+
+    $datasetID = mysqli_fetch_array($results)['id'];
+    $username = $_SESSION['username'];
+
+    $query = "SELECT * FROM users WHERE username=
+                '$username'";
+    $results = mysqli_query($db, $query);
+
+    // $results = 1 means that user was found
+    if (mysqli_num_rows($results) != 1) {
+        array_push($errors, "No user logged in");
+    }else{
+        $user_id = mysqli_fetch_array($results)['id'];
+        $query = "SELECT * FROM userInternalDatasets
+                    WHERE user_id='$user_id' AND internal_id='$datasetID'";
+        $results = mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+        if (mysqli_num_rows($results) != 0) {
+            array_push($errors, "Dataset already saved to profile");
+        }
+    }
+
+    // If the form is error free, then save the dataset
+    if (count($errors) == 0) {
+        $query = "INSERT INTO userInternalDatasets (user_id, internal_id)
+                    VALUES('$user_id', '$datasetID')";
+        mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+        
+        $_SESSION['success'] = "You have saved a dataset to your profile";
+
+
+    }
+}
+
+if (isset($_POST['remove_dataset_internal'])) {
+    $datasetName = mysqli_real_escape_string($db, $_SESSION['dataset']);
+
+    // Ensuring that the user has not left any input field blank
+    // error messages will be displayed for every blank input that is required
+    if (empty($datasetName)) { array_push($errors, "Dataset ID is required"); }
+    
+    $query = "SELECT * FROM internalDatasets WHERE title=
+                    '$datasetName'";
+    $results = mysqli_query($db, $query);
+    
+    $datasetID = mysqli_fetch_array($results)['id'];
+    $username = $_SESSION['username'];
+
+    $query = "SELECT * FROM users WHERE username=
+                '$username'";
+    $results = mysqli_query($db, $query);
+
+    // $results = 1 means that user was found
+    if (mysqli_num_rows($results) != 1) {
+        array_push($errors, "No user logged in");
+    }else{
+        $user_id = mysqli_fetch_array($results)['id'];
+    }
+    
+    // If the form is error free, then save the dataset
+    if (count($errors) == 0) {
+        $query = "DELETE FROM userInternalDatasets
+                    WHERE user_id='$user_id' AND internal_id='$datasetID'";
+        mysqli_query($db, $query) or trigger_error(mysqli_error($db));
+        
+        $_SESSION['success'] = "You have removed a dataset from your profile";
+    }
+}
+
 if (isset($_GET['dataset'])) {
     $_SESSION['dataset'] = $_GET['dataset'];
 }
