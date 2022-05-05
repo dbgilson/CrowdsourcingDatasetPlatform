@@ -280,9 +280,11 @@ if (isset($_POST['delete_dataset'])) {
 // Zips up a dataset directory and downloads it
 if (isset($_POST['download_dataset'])) {
     // Get real path for our folder
-    $rootPath = realpath('./datasets/Plants');
-    //$zipFile = $_SESSION['dataset'] . '.zip';
-    $zipFile = 'Plants.zip';
+    //$rootPath = realpath('./datasets/Plants');
+    $path = './datasets/' . $_SESSION['dataset'];
+    $rootPath = realpath($path);
+    $zipFile = $_SESSION['dataset'] . '.zip';
+    //$zipFile = 'Plants.zip';
 
     // Initialize archive object
     $zip = new ZipArchive();
