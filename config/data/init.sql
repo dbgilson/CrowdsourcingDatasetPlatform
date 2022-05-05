@@ -34,3 +34,15 @@ CREATE DATABASE crowdsource_website_db;
     infoKey2 VARCHAR(30), -- kaggle = number of downloads  ics = number of columns
     infoValue2 VARCHAR(30)
   );
+
+  CREATE TABLE userExternalDatasets (
+    user_id INT NOT NULL,
+    external_id INT NOT NULL,
+    PRIMARY KEY(user_id, external_id)
+  );
+
+  CREATE TABLE userInternalDatasets (
+    user_id INT NOT NULL,
+    internal_id INT NOT NULL,
+    PRIMARY KEY(user_id, internal_id)
+  );
