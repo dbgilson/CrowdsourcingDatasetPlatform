@@ -136,7 +136,7 @@ if(isset($_SESSION['username'])) {
 
 
             if(empty($images)){
-                echo $dirname;
+                //echo $dirname;
                 echo "This dataset has no images. <br>";
             }
             

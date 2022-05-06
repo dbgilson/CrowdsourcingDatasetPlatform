@@ -71,7 +71,7 @@ if(!isset($_SESSION['username'])) {
             </header>
         </div>
         <?php
-            echo '<h1 align="left" class="h4 mt-1 mb-5 fw-normal">Current User: ' . $_SESSION['username'] . '</h1>';
+            //echo '<h1 align="left" class="h4 mt-1 mb-5 fw-normal">Current User: ' . $_SESSION['username'] . '</h1>';
         ?>
         <img class="mb-4" src="../assets/checkbox.png" alt="" width="144" height="57">
         <h1 class=h3 mb-3 fw-normal u><u>User Contributed Datasets</u></h1>
