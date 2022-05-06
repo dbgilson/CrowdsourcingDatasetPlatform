@@ -131,11 +131,17 @@ try {
                 if($displayInResults) {
                     // echo count(($_SESSION['search_results']));
                     while($row = $_SESSION['in_search_results']->fetch_assoc()) {
+                        $userId = $row['owner_id'];
+                        $query = "SELECT * FROM users WHERE id=
+                                        '$userId'";
+                        $results = mysqli_query($db, $query);
+                        $username = mysqli_fetch_array($results)['username'];
+                        
                         echo '<tr>
                         <th scope="row">'. $count++ .'</th>
                         <td>'. $row['title']. '</td>
                         <td>'. $row["tags"] .'</td>';
-                        echo'<td>'. $row['owner_id'].'</td>';
+                        echo'<td>'. $username .'</td>';
                         echo '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'&owner_id=' . $row['owner_id'] . '">Details</a></td>
                         </tr>';
                     }

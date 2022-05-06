@@ -160,11 +160,18 @@ if(!isset($_SESSION['username'])) {
                 else{
                     echo "<tbody>";
                     foreach($resultInternal as $row) {
+                        $userId = $row['owner_id'];
+                        $query = "SELECT * FROM users WHERE id=
+                                        '$userId'";
+                        $results = mysqli_query($db, $query);
+                        $username = mysqli_fetch_array($results)['username'];
+
+
                         echo    "<tr>";
                         echo        '<th scope="row">'. $index . '</th>';
                         echo        '<td>'.$row["title"].'</td>';
                         echo        '<td>'.$row["tags"].'</td>';
-                        echo        '<td>'. $row['owner_id'].'</td>';
+                        echo        '<td>'. $username.'</td>';
                         echo        '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'&owner_id=' . $_SESSION["id"] . '">View Dataset</a></td>';
                         echo    "</tr>";
                         $index++;
