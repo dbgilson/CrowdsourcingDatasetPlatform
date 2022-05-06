@@ -2,6 +2,7 @@
 <?php 
 $alreadySaved = false;
 $datasetTitle = $_GET['dataset'];
+$datasetOwner = $_GET['owner_id'];
 
 if(isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -142,7 +143,7 @@ if(isset($_SESSION['username'])) {
             foreach($images as $image) {
                 echo "<img src=\"" . $image . "\" height=\"130\" width=\"150\" />";
                 if($_GET["owner_id"] == $_SESSION["id"]){
-                    echo '<form method="POST" action="DisplayDataset.php">';
+                    echo '<form method="POST" action="DisplayDataset.php?dataset='. $datasetTitle .'&owner_id=' . $datasetOwner . '">';
                     echo '<button name="delete_image" value="'. $image . '">';
                     echo 'Delete';
                     echo '</button>';
