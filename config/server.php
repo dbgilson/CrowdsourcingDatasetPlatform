@@ -255,7 +255,11 @@ if (isset($_POST['delete_image'])) {
 
 // Delete a dataset
 if (isset($_POST['delete_dataset'])) {
-    $dataset = $_SESSION['dataset'];
+    // $dataset = $_SESSION['dataset'];
+    $dataset = mysqli_real_escape_string($db, $_POST['dataset']);
+    if (empty($searchString)) {
+        array_push($errors, "Must enter some search term");
+    }
     $dataset_path = './datasets/' . $dataset;
 
     // Remove the dataset from the internalDatasets table

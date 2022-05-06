@@ -83,6 +83,7 @@ if(!isset($_SESSION['username'])) {
                     <th scope="col">Description</th>
                     <th scope="col">Tags</th>
                     <th scope="col">Files</th>
+                    <th scope="col">Delete</th>
                 </tr>
             </thead>
             <?php
@@ -105,6 +106,12 @@ if(!isset($_SESSION['username'])) {
                         echo        '<td>'.$row["description"].'</td>';
                         echo        '<td>'.$row["tags"].'</td>';
                         echo        '<td><a href="DisplayDataset.php?dataset='. $row['title'] .'&owner_id=' . $_SESSION["id"] . '">View Dataset</a></td>';
+                        echo        '<th scope="row">
+                                        <form name="delete_dataset" method="post">
+                                        <input type="hidden" name="dataset" value="'. $row['title'] . '">
+                                        <button type="submit" class="btn btn-info" name="delete_dataset">Delete Dataset</button>
+                                        </form>
+                                    </th>';
                         echo    "</tr>";
                         $index++;
                     }
