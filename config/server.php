@@ -532,5 +532,9 @@ if (isset($_GET['id'])) {
     $_SESSION['id'] = $_GET['id'];
 }
 
+if (isset($_GET['owner_id'])) {
+    $_SESSION['owner_id'] = $_GET['owner_id'];
+}
+
 
 ?>
