@@ -184,29 +184,6 @@ if(!isset($_SESSION['username'])) {
             ?>
         </table>
 
-        <h1 class="h3 mt-5 mb-3 fw-normal u"><u>Modification Requests</u></h1>
-
-        <table class="table table-striped table-bordered" id="userTable">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Tags</th>
-                    <th scope="col">Contributors</th>
-                    <th scope="col">Files</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Sunflower Photograph Set</td>
-                    <td>Photo, Flower, Sunflower</td>
-                    <td>USERNAME</td>
-                    <td>FILE LINK HERE</td>
-                </tr>
-            </tbody>
-        </table>
-
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
 
     </main>
