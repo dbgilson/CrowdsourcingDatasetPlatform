@@ -1,4 +1,7 @@
-<?php include('../../config/server.php') ?>
+<?php include('../../config/server.php'); 
+$datasetTitle = $_GET['dataset'];
+$datasetOwner = $_GET['owner_id'];
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -75,7 +78,12 @@
             </div>
 
             <input type="submit" class="w-75 btn btn-lg btn-primary" value="Upload Image" name="upload_image">
-
+            
+            <div class="d-flex mt-2 align-items-center justify-content-center pb-4">
+                <?php
+                  echo '<a href="DisplayDataset.php?dataset='. $datasetTitle .'&owner_id=' . $datasetOwner . '""><button type="button" class="w-35 mt-1 mb-2 btn btn-m btn-primary">Back</button></a>';
+                ?>
+            </div>
             <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
         </form>
     </main>
