@@ -89,7 +89,7 @@
 
               <div class="mb-3">
                 <label for="formFile" class="form-label">Select Images to Upload</label>
-                <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" multiple>
+                <input class="form-control" type="file" name="fileToUpload[]" id="fileToUpload" multiple>
               </div>
 
               <button type="submit" class="w-50 btn btn-lg btn-primary" name="create_dataset">Create Dataset</button>

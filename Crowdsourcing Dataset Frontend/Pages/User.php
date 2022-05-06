@@ -112,7 +112,7 @@ if(!isset($_SESSION['username'])) {
                 }
             ?>
         </table>
-        <a href="CreateDataset.php"><button type="button" class="w-35 mt-1 btn btn-m btn-primary">Create Dataset</button></a>
+        <a href="CreateDataset.php"><button type="button" class="w-35 mt-1 mb-2 btn btn-m btn-primary">Create Dataset</button></a>
 
         <h1 class=h3 mb-3 fw-normal u><u>Saved Datasets</u></h1>
         <table class="table table-striped table-bordered" id="userTable">

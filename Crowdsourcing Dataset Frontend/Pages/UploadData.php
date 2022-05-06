@@ -1,6 +1,4 @@
 <?php include('../../config/server.php') ?>
-<?php $_SESSION['dataset'] = "Plants"; // FIXME ?>
-
 <!doctype html>
 <html lang="en">
 <head>

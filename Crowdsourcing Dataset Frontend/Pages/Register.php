@@ -60,7 +60,7 @@
 
         <form class="form-signin" method="post" action="Register.php">
             <?php include('../../config/errors.php'); ?>
-            <img class="mb-4" src="../assets/checkbox.png" alt="" width="144" height="57">
+            <img class="mb-4" src="../assets/checkbox.png" alt="" width="200" height="150">
             <h1 class="h3 mb-3 fw-normal">Registration</h1>
 
             <div class="row">
