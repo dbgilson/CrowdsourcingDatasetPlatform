@@ -11,11 +11,11 @@ function redirect($url) {
     ob_end_flush();
     die();
 }
-if(!isset($_SESSION['id'])) {
+if(!isset($_SESSION['dataset_id'])) {
     redirect("location: SearchPage.php");
 }
 
-$datasetID = $_SESSION['id'];
+$datasetID = $_SESSION['dataset_id'];
 $alreadySaved = false;
 if(isset($_SESSION['username'])) {
     $username = $_SESSION['username'];

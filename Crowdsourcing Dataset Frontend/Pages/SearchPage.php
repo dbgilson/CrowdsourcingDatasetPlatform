@@ -154,7 +154,7 @@ try {
                             <td>'. $row['title']. '</td>
                             <td>'. $row["tags"] .'</td>';
                             echo '<td>(External) '. $row['web_source'] .'</td>';
-                            echo '<td><a href="DatasetView.php?id= '.$row['id'] . '">Details</a></td>
+                            echo '<td><a href="DatasetView.php?dataset_id= '.$row['id'] . '">Details</a></td>
                         </tr>';
                     }
                 }

@@ -182,7 +182,7 @@ if(!isset($_SESSION['username'])) {
                         echo        '<td>'.$row["title"].'</td>';
                         echo        '<td>'.$row["tags"].'</td>';
                         echo        '<td>(External) '. $row['web_source'] .'</td>';
-                        echo        '<td><a href="DatasetView.php?id='. $row['id'] . '">View Dataset</a></td>';
+                        echo        '<td><a href="DatasetView.php?dataset_id='. $row['id'] . '">View Dataset</a></td>';
                         echo    "</tr>";
                         $index++;
                     }
