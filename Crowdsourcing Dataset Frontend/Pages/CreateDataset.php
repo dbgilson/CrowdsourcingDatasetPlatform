@@ -64,9 +64,6 @@
                   </ul>
               </header>
           </div>
-          <?php
-            echo '<h1 align="left" class="h4 mt-1 mb-5 fw-normal">Current User: ' . $_SESSION['username'] . '</h1>';
-          ?>
           <form class="form-upload" method="post" action="CreateDataset.php" enctype="multipart/form-data">
           <?php include('../../config/errors.php'); ?>
               <img class="mb-4" src="../assets/checkbox.png" alt="" width="144" height="57">

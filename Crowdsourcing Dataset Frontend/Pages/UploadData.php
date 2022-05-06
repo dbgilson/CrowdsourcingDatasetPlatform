@@ -67,9 +67,6 @@ $datasetOwner = $_GET['owner_id'];
                 </ul>
             </header>
         </div>
-        <?php
-            echo '<h1 align="left" class="h4 mt-1 mb-5 fw-normal">Current User: ' . $_SESSION['username'] . '</h1>';
-        ?>
         <form class="form-upload" action="UploadData.php" method="post" enctype="multipart/form-data">
         <?php include('../../config/errors.php'); ?>
             <div class="mb-3">
