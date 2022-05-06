@@ -169,33 +169,35 @@ if (isset($_POST['create_dataset'])) {
 
         mysqli_query($db, $query) or trigger_error(mysqli_error($db));
 
-        $db_path = "datasets/" . $title . "/";
-        $target_file = $db_path . basename($_FILES["fileToUpload"]["name"]);
+        $target_dir = "datasets/" . $title . "/";
+        $countfiles = count($_FILES["fileToUpload"]["name"]);
+        for($i = 0; $i < $countfiles; $i++){
+            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"][$i]);
 
-        
-        // Check if file already exists
-        if (file_exists($target_file)) {
-            array_push($errors, "File already exists");
-        }
-        
-        // Check file size
-        if ($_FILES["fileToUpload"]["size"] > 500000) {
-            array_push($errors, "File is too large");
-        }
-        
-        // Check file format
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        if($imageFileType != "jpg" && $imageFileType != "png"&& $imageFileType != "jpeg") {
-            array_push($errors, "File must be JPG, JPEG, or PNG");
-        }
-        
-        // If the form is error free, then create the dataset
-        if (count($errors) == 0) {
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                $_SESSION['success'] = "You have successfully uploaded a file";
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                array_push($errors, "File already exists");
             }
-            else {
-                echo "Error uploading your file.";
+
+            // Check file size
+            if ($_FILES["fileToUpload"]["size"][$i] > 500000) {
+               array_push($errors, "File is too large");
+            }
+
+            // Check file format
+            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+            if($imageFileType != "jpg" && $imageFileType != "png"&& $imageFileType != "jpeg") {
+                array_push($errors, "File msut be JPG, JPEG, or PNG");
+            }
+
+            // If the form is error free, then create the dataset
+            if (count($errors) == 0) {
+                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i], $target_file)) {
+                    $_SESSION['success'] = "You have successfully uploaded a file";
+                }
+                else {
+                    echo "Error uploading your file.";
+                }
             }
         }
         $_SESSION['success'] = "You have created a new dataset";
