@@ -67,7 +67,10 @@ $datasetOwner = $_GET['owner_id'];
                 </ul>
             </header>
         </div>
-        <form class="form-upload" action="UploadData.php" method="post" enctype="multipart/form-data">
+        <?php
+            echo '<form class="form-upload" action="DisplayDataset.php?dataset=' . $_SESSION['dataset'] . '&owner_id=' . $_SESSION['owner_id'] . '" method="POST" enctype="multipart/form-data">'
+        ?>
+        <!-- <form class="form-upload" action="UploadData.php" method="post" enctype="multipart/form-data"> -->
         <?php include('../../config/errors.php'); ?>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Select Images to Upload</label>
