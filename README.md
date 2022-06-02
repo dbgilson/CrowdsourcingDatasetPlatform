@@ -1,6 +1,7 @@
 # Crowdsourcing Dataset Platform
 ### Team Name: Crowdsourcing Dataset Platform
 ### Team Members: Jacob Samar, Alan Hencey, David Gilson
+### SEE FINAL REPORT.PDF FOR FULL PROGRESS
 
 ## Introduction
 
